@@ -1,0 +1,201 @@
+cd
+
+C:\Users\PC-01>cd\
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>mysql -u root
+'mysql' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 53
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database nsu
+    -> ;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use nsu
+Database changed
+MariaDB [nsu]> create table stud(roll int primary key,name varchar(200),address varchar(100),phno bigint,branch varchar(50));
+Query OK, 0 rows affected (0.294 sec)
+
+MariaDB [nsu]> desc stud;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll    | int(11)      | NO   | PRI | NULL    |       |
+| name    | varchar(200) | YES  |     | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
+| phno    | bigint(20)   | YES  |     | NULL    |       |
+| branch  | varchar(50)  | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.010 sec)
+
+MariaDB [nsu]> insert into stud values(1,'ravi','sonari',123456789,'BCA');
+Query OK, 1 row affected (0.073 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    1 | ravi | sonari  | 123456789 | BCA    |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> insert into stud values(2,'ravi','sonari',123456789,'BCA');
+Query OK, 1 row affected (0.054 sec)
+
+MariaDB [nsu]> insert into stud values(1,'ravi','sonari',123456789,'BCA');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud.roll);
+ERROR 1005 (HY000): Can't create table `nsu`.`lib` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud(roll));
+Query OK, 0 rows affected (0.138 sec)
+
+MariaDB [nsu]> insert into lib values(123,3,'JAVA');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`nsu`.`lib`, CONSTRAINT `lib_ibfk_1` FOREIGN KEY (`roll`) REFERENCES `stud` (`roll`))
+MariaDB [nsu]> insert into lib values(123,1,'JAVA');
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [nsu]> drop table lib;
+Query OK, 0 rows affected (0.108 sec)
+
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud(roll) on delete casecade);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'casecade)' at line 1
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud(roll) on delete cascade);
+Query OK, 0 rows affected (0.144 sec)
+
+MariaDB [nsu]> insert into lib values(123,2,'JAVA');
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    1 | ravi | sonari  | 123456789 | BCA    |
+|    2 | ravi | sonari  | 123456789 | BCA    |
++------+------+---------+-----------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from lib;
++-----+------+-----------+
+| id  | roll | book_name |
++-----+------+-----------+
+| 123 |    2 | JAVA      |
++-----+------+-----------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> delete from stud where roll=2;
+Query OK, 1 row affected (0.025 sec)
+
+MariaDB [nsu]> select * from lib;
+Empty set (0.000 sec)
+
+MariaDB [nsu]> drop table lib;
+Query OK, 0 rows affected (0.120 sec)
+
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud(roll));
+Query OK, 0 rows affected (0.164 sec)
+
+MariaDB [nsu]> drop table lib;
+Query OK, 0 rows affected (0.093 sec)
+
+MariaDB [nsu]> create table lib(id int primary key,roll int,name varchar(100),book_name varchar(50), foreign key(roll) references stud(roll));
+Query OK, 0 rows affected (0.192 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    1 | ravi | sonari  | 123456789 | BCA    |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> insert into lib values(123,2,'ravi kumar','vbasic');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`nsu`.`lib`, CONSTRAINT `lib_ibfk_1` FOREIGN KEY (`roll`) REFERENCES `stud` (`roll`))
+MariaDB [nsu]> insert into lib values(123,1,'ravi kumar','vbasic');
+Query OK, 1 row affected (0.018 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    1 | ravi | sonari  | 123456789 | BCA    |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select * from lib;
++-----+------+------------+-----------+
+| id  | roll | name       | book_name |
++-----+------+------------+-----------+
+| 123 |    1 | ravi kumar | vbasic    |
++-----+------+------------+-----------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> drop table lib;
+Query OK, 0 rows affected (0.103 sec)
+
+MariaDB [nsu]> create table lib(id int primary key,roll int,book_name varchar(50), foreign key(roll) references stud(roll));
+Query OK, 0 rows affected (0.137 sec)
+
+MariaDB [nsu]> insert into lib values(123,1,'JAVA');
+Query OK, 1 row affected (0.035 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    1 | ravi | sonari  | 123456789 | BCA    |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select * from lib;;
++-----+------+-----------+
+| id  | roll | book_name |
++-----+------+-----------+
+| 123 |    1 | JAVA      |
++-----+------+-----------+
+1 row in set (0.000 sec)
+
+ERROR: No query specified
+
+MariaDB [nsu]> select *,stud.name from lib inner join stud on stud.roll=lib.roll;
++-----+------+-----------+------+------+---------+-----------+--------+------+
+| id  | roll | book_name | roll | name | address | phno      | branch | name |
++-----+------+-----------+------+------+---------+-----------+--------+------+
+| 123 |    1 | JAVA      |    1 | ravi | sonari  | 123456789 | BCA    | ravi |
++-----+------+-----------+------+------+---------+-----------+--------+------+
+1 row in set (0.009 sec)
+
+MariaDB [nsu]> update stud set name='ravi kumar' where roll=1;
+Query OK, 1 row affected (0.036 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
++------+------------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select *,stud.name from lib inner join stud on stud.roll=lib.roll;
++-----+------+-----------+------+------------+---------+-----------+--------+------------+
+| id  | roll | book_name | roll | name       | address | phno      | branch | name       |
++-----+------+-----------+------+------------+---------+-----------+--------+------------+
+| 123 |    1 | JAVA      |    1 | ravi kumar | sonari  | 123456789 | BCA    | ravi kumar |
++-----+------+-----------+------+------------+---------+-----------+--------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]>

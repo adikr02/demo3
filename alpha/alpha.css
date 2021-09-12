@@ -1,0 +1,22 @@
+div{
+    height: 100px;
+    width: 100px;
+    float: left;
+    font-size: 90px;
+    text-align: center;
+    margin: 5px;
+    background-color: violet;
+
+}
+div:hover{
+transform: scale(1.05);
+transition: all 0.3ms ease;
+}
+#output{
+    height: 500px;
+    width: 100%;
+    background-color: black;
+    background-size: 100% 100%;
+    position: fixed;
+
+}

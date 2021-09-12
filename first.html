@@ -1,0 +1,29 @@
+<html>
+    <head>
+<title>Home</title>
+<style>
+div{
+    background-color: aqua;
+}
+        
+</style>
+ </head>
+ <script>
+     function ch()
+     {
+         a=document.getElementById("t1").value;
+         b=document.getElementById("t2").value;
+         c=parseInt(a)+parseInt(b);
+         m=parseInt(a)-parseInt(b);
+         document.getElementById("d1").innerHTML=c;
+        }
+ </script>
+ <body>
+     <div id="d1"></div>
+     <input type="text" id="t1"><br><br>
+     <input type="text" id="t2"><br><br>
+
+     <input type="button" onclick="ch()">
+
+     </body>
+</html>

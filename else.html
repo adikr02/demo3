@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>Home</title>
+</head>
+<script>
+    function ch() {
+        a = document.getElementById("t1").value;
+        b = document.getElementById("t2").value;
+        x = document.getElementById("t3").value;
+        y = document.getElementById("t4").value;
+        z = document.getElementById("t5").value;
+        if (parseInt(a) > 100 || parseInt(b) > 100 || parseInt(x) > 100 || parseInt(y) > 100 || parseInt(z) > 100) {
+            document.getElementById("grade").innerHTML = "Invalid Input";
+        }
+        else if (parseInt(a) < 40 || parseInt(b) < 40 || parseInt(x) < 40 || parseInt(y) < 40 || parseInt(z) < 40) {
+            document.getElementById("grade").innerHTML = "fail";
+        }
+        else {
+            n = parseInt(a) + parseInt(b) + parseInt(x) + parseInt(y) + parseInt(z);
+            m = n / 5;
+            document.getElementById("tot").innerHTML = n;
+            document.getElementById("avg").innerHTML = m + "%";
+
+            if (m < 30){
+                document.getElementById("grade").innerHTML = "Fail";
+            }
+            else if (m >=30 && m<50){
+                document.getElementById("grade").innerHTML = "C";
+            }
+            else if (m >= 50 && m<60){
+                document.getElementById("grade").innerHTML = "B";
+            }
+            else if (m >= 60 && m<80){
+                document.getElementById("grade").innerHTML = "A";
+            }
+            else if (m >= 80 && m<100){
+                document.getElementById("grade").innerHTML = "A+";
+            }
+        }
+    }
+</script>
+
+<body>
+
+    English - <input type="text" id="t1"><br><br>
+    Maths- <input type="text" id="t2"><br><br>
+    Computer- <input type="text" id="t3"><br><br>
+    Hindi- <input type="text" id="t4"><br><br>
+    SST- <input type="text" id="t5"><br><br>
+    <button onclick="ch()">OK</button>
+    <div>
+        <h1>Total = <p id="tot"></p>
+        </h1>
+    </div>
+    <div>
+        <h1>Average = <p id="avg"></p>
+        </h1>
+        </div1>
+        <div1>
+            <h1> Grade = <p id="grade"></p>
+            </h1>
+        </div1>
+</body>
+
+</html>

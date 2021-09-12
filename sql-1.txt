@@ -1,0 +1,666 @@
+Microsoft Windows [Version 10.0.18363.418]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\PC-01>cd\
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 16
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use nsu
+Database changed
+MariaDB [nsu]> create table marks(roll int,subject varchar(30),marks int);
+Query OK, 0 rows affected (0.241 sec)
+
+MariaDB [nsu]> insert into marks(1,'Math',60);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1,'Math',60)' at line 1
+MariaDB [nsu]> insert into marks values(1,'Math',60);
+Query OK, 1 row affected (0.200 sec)
+
+MariaDB [nsu]> insert into marks values(2,'Hindi',80);
+Query OK, 1 row affected (0.052 sec)
+
+MariaDB [nsu]> insert into marks values(3,'English',90);
+Query OK, 1 row affected (0.023 sec)
+
+MariaDB [nsu]> insert into marks values(4,'SST',90);
+Query OK, 1 row affected (0.038 sec)
+
+MariaDB [nsu]> insert into marks values(5,'SCI',75);
+Query OK, 1 row affected (0.034 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
++------+------------+---------+-----------+--------+
+1 row in set (0.035 sec)
+
+MariaDB [nsu]> select * from marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    5 | SCI     |    75 |
++------+---------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select *,stud.name from marks where stud.roll=marks.roll;
+ERROR 1054 (42S22): Unknown column 'stud.name' in 'field list'
+MariaDB [nsu]> select *,stud.name from marks,stud where stud.roll=marks.roll;
++------+---------+-------+------+------------+---------+-----------+--------+------------+
+| roll | subject | marks | roll | name       | address | phno      | branch | name       |
++------+---------+-------+------+------------+---------+-----------+--------+------------+
+|    1 | Math    |    60 |    1 | ravi kumar | sonari  | 123456789 | BCA    | ravi kumar |
++------+---------+-------+------+------------+---------+-----------+--------+------------+
+1 row in set (0.018 sec)
+
+MariaDB [nsu]> select marks.roll.marks.subject,marks.marks,stud.name from marks,stud where stud.roll=marks.roll;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.subject,marks.marks,stud.name from marks,stud where stud.roll=marks.roll' at line 1
+MariaDB [nsu]> select marks.roll,marks.subject,marks.marks,stud.name from marks,stud where stud.roll=marks.roll;
++------+---------+-------+------------+
+| roll | subject | marks | name       |
++------+---------+-------+------------+
+|    1 | Math    |    60 | ravi kumar |
++------+---------+-------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [nsu]> select marks.roll,stud.name,marks.subject,marks.marks from marks,stud where stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
++------+------------+---------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select max(
+    -> Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 17
+Server version: 10.4.17-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use nsu
+Database changed
+MariaDB [nsu]> select max(marks) from marks;
++------------+
+| max(marks) |
++------------+
+|         90 |
++------------+
+1 row in set (0.045 sec)
+
+MariaDB [nsu]> select sum(marks) from marks;
++------------+
+| sum(marks) |
++------------+
+|        395 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [nsu]> select avg(marks) from marks;
++------------+
+| avg(marks) |
++------------+
+|    79.0000 |
++------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select max(marks),subject from marks;
++------------+---------+
+| max(marks) | subject |
++------------+---------+
+|         90 | Math    |
++------------+---------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select subject,max(marks) from marks;
++---------+------------+
+| subject | max(marks) |
++---------+------------+
+| Math    |         90 |
++---------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select subject,max(marks) from marks order by subject;
++---------+------------+
+| subject | max(marks) |
++---------+------------+
+| Math    |         90 |
++---------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select subject,max(marks) from marks order by marks;
++---------+------------+
+| subject | max(marks) |
++---------+------------+
+| Math    |         90 |
++---------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select subject,max(marks) from marks order by subject desc;
++---------+------------+
+| subject | max(marks) |
++---------+------------+
+| Math    |         90 |
++---------+------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select top 1 * from marks;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1 * from marks' at line 1
+MariaDB [nsu]> select * from marks desc marks;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc marks' at line 1
+MariaDB [nsu]> select * from marks order by marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    5 | SCI     |    75 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
++------+---------+-------+
+5 rows in set (0.020 sec)
+
+MariaDB [nsu]> select * from marks order by marks desc;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    2 | Hindi   |    80 |
+|    5 | SCI     |    75 |
+|    1 | Math    |    60 |
++------+---------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from marks order by marks desc limit 1;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    3 | English |    90 |
++------+---------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select * from marks order by marks desc limit 2;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    4 | SST     |    90 |
+|    3 | English |    90 |
++------+---------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
++------+------------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> insert into stud values(2,'Nitin','kandra',789456659,'BSCIT');
+Query OK, 1 row affected (0.124 sec)
+
+MariaDB [nsu]> insert into stud values(3,'Nitu','kandra',789456659,'BSCIT');
+Query OK, 1 row affected (0.042 sec)
+
+MariaDB [nsu]> insert into stud values(3,'Niraj','kandra',789456659,'BSCIT');
+ERROR 1062 (23000): Duplicate entry '3' for key 'PRIMARY'
+MariaDB [nsu]> insert into stud values(3,'Raja','kandra',789456659,'BSCIT');
+ERROR 1062 (23000): Duplicate entry '3' for key 'PRIMARY'
+MariaDB [nsu]> insert into stud values(4,'Raja','kandra',789456659,'BSCIT');
+Query OK, 1 row affected (0.033 sec)
+
+MariaDB [nsu]> insert into stud values(5,'Raj kumar','kandra',789456659,'BSCIT');
+Query OK, 1 row affected (0.020 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name='raja';
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    4 | Raja | kandra  | 789456659 | BSCIT  |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name='rajt';
+Empty set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like '%rajt%';
+Empty set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like '%raja%';
++------+------+---------+-----------+--------+
+| roll | name | address | phno      | branch |
++------+------+---------+-----------+--------+
+|    4 | Raja | kandra  | 789456659 | BSCIT  |
++------+------+---------+-----------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like 'raj%';
++------+-----------+---------+-----------+--------+
+| roll | name      | address | phno      | branch |
++------+-----------+---------+-----------+--------+
+|    4 | Raja      | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar | kandra  | 789456659 | BSCIT  |
++------+-----------+---------+-----------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like 'r%';
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like '%r';
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like '%r%';
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+3 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where name like '%aj%';
++------+-----------+---------+-----------+--------+
+| roll | name      | address | phno      | branch |
++------+-----------+---------+-----------+--------+
+|    4 | Raja      | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar | kandra  | 789456659 | BSCIT  |
++------+-----------+---------+-----------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud where roll=1;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
++------+------------+---------+-----------+--------+
+1 row in set (0.001 sec)
+
+MariaDB [nsu]> select * from stud where roll=1,2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2' at line 1
+MariaDB [nsu]> select * from stud where roll in(1,2);
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+2 rows in set (0.000 sec)
+
+MariaDB [nsu]> insert into marks values(6,'SCI',75);
+Query OK, 1 row affected (0.050 sec)
+
+MariaDB [nsu]> insert into marks values(6,'SST',85);
+Query OK, 1 row affected (0.033 sec)
+
+MariaDB [nsu]> insert into marks values(6,'HINDI',65);
+Query OK, 1 row affected (0.021 sec)
+
+MariaDB [nsu]> insert into marks values(7,'ENGLISH',75);
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [nsu]> insert into marks values(6,'ENGLISH',75);
+Query OK, 1 row affected (0.023 sec)
+
+MariaDB [nsu]> insert into marks values(6,'COMP',95);
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [nsu]> select * from marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    5 | SCI     |    75 |
+|    6 | SCI     |    75 |
+|    6 | SST     |    85 |
+|    6 | HINDI   |    65 |
+|    7 | ENGLISH |    75 |
+|    6 | ENGLISH |    75 |
+|    6 | COMP    |    95 |
++------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select sum(marks) from marks;
++------------+
+| sum(marks) |
++------------+
+|        865 |
++------------+
+1 row in set (0.000 sec)
+
+MariaDB [nsu]> select sum(marks) from group by roll;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'group by roll' at line 1
+MariaDB [nsu]> select sum(marks) from marks group by roll;
++------------+
+| sum(marks) |
++------------+
+|         60 |
+|         80 |
+|         90 |
+|         90 |
+|         75 |
+|        395 |
+|         75 |
++------------+
+7 rows in set (0.000 sec)
+
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll;
++------+------------+
+| roll | sum(marks) |
++------+------------+
+|    1 |         60 |
+|    2 |         80 |
+|    3 |         90 |
+|    4 |         90 |
+|    5 |         75 |
+|    6 |        395 |
+|    7 |         75 |
++------+------------+
+7 rows in set (0.000 sec)
+
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where marks>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where marks>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having marks>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having marks>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having(marks)>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having(marks)>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having (marks>100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having (marks>100)' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having sum(marks)>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having sum(marks)>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having count(marks)>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having count(marks)>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where having sum(marks)>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where having sum(marks)>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where HAVING sum(marks)>100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where HAVING sum(marks)>100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where HAVING sum(marks)=100;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where HAVING sum(marks)=100' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll where HAVING roll=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where HAVING roll=1' at line 1
+MariaDB [nsu]> select roll,sum(marks) from marks group by roll  HAVING sum(marks)>100;
++------+------------+
+| roll | sum(marks) |
++------+------------+
+|    6 |        395 |
++------+------------+
+1 row in set (0.010 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    5 | SCI     |    75 |
+|    6 | SCI     |    75 |
+|    6 | SST     |    85 |
+|    6 | HINDI   |    65 |
+|    7 | ENGLISH |    75 |
+|    6 | ENGLISH |    75 |
+|    6 | COMP    |    95 |
++------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud inner join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
++------+------------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud left join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
++------+------------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud full join marks on stud.roll=marks.roll;
+ERROR 1054 (42S22): Unknown column 'stud.roll' in 'field list'
+MariaDB [nsu]> select * ,marks.subject,marks.marks from stud left join marks on stud.roll=marks.roll;
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+| roll | name       | address | phno      | branch | roll | subject | marks | subject | marks |
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |    1 | Math    |    60 | Math    |    60 |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |    2 | Hindi   |    80 | Hindi   |    80 |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |    3 | English |    90 | English |    90 |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |    4 | SST     |    90 | SST     |    90 |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |    5 | SCI     |    75 | SCI     |    75 |
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [nsu]> select * from marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    5 | SCI     |    75 |
+|    6 | SCI     |    75 |
+|    6 | SST     |    85 |
+|    6 | HINDI   |    65 |
+|    7 | ENGLISH |    75 |
+|    6 | ENGLISH |    75 |
+|    6 | COMP    |    95 |
++------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * ,marks.subject,marks.marks from stud right join marks on stud.roll=marks.roll;
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+| roll | name       | address | phno      | branch | roll | subject | marks | subject | marks |
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |    1 | Math    |    60 | Math    |    60 |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |    2 | Hindi   |    80 | Hindi   |    80 |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |    3 | English |    90 | English |    90 |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |    4 | SST     |    90 | SST     |    90 |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |    5 | SCI     |    75 | SCI     |    75 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    6 | SCI     |    75 | SCI     |    75 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    6 | SST     |    85 | SST     |    85 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    6 | HINDI   |    65 | HINDI   |    65 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    7 | ENGLISH |    75 | ENGLISH |    75 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    6 | ENGLISH |    75 | ENGLISH |    75 |
+| NULL | NULL       | NULL    |      NULL | NULL   |    6 | COMP    |    95 | COMP    |    95 |
++------+------------+---------+-----------+--------+------+---------+-------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud right join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
+| NULL | NULL       | SCI     |    75 |
+| NULL | NULL       | SST     |    85 |
+| NULL | NULL       | HINDI   |    65 |
+| NULL | NULL       | ENGLISH |    75 |
+| NULL | NULL       | ENGLISH |    75 |
+| NULL | NULL       | COMP    |    95 |
++------+------------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from stud
+    -> ;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
++------+------------+---------+-----------+--------+
+5 rows in set (0.000 sec)
+
+MariaDB [nsu]> select * from marks;
++------+---------+-------+
+| roll | subject | marks |
++------+---------+-------+
+|    1 | Math    |    60 |
+|    2 | Hindi   |    80 |
+|    3 | English |    90 |
+|    4 | SST     |    90 |
+|    5 | SCI     |    75 |
+|    6 | SCI     |    75 |
+|    6 | SST     |    85 |
+|    6 | HINDI   |    65 |
+|    7 | ENGLISH |    75 |
+|    6 | ENGLISH |    75 |
+|    6 | COMP    |    95 |
++------+---------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud inner join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
++------+------------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud right join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
+| NULL | NULL       | SCI     |    75 |
+| NULL | NULL       | SST     |    85 |
+| NULL | NULL       | HINDI   |    65 |
+| NULL | NULL       | ENGLISH |    75 |
+| NULL | NULL       | ENGLISH |    75 |
+| NULL | NULL       | COMP    |    95 |
++------+------------+---------+-------+
+11 rows in set (0.001 sec)
+
+MariaDB [nsu]> insert into stud values(8,'Akash','sonari',45567899,'BSCIT');
+Query OK, 1 row affected (0.047 sec)
+
+MariaDB [nsu]> select * from stud;
++------+------------+---------+-----------+--------+
+| roll | name       | address | phno      | branch |
++------+------------+---------+-----------+--------+
+|    1 | ravi kumar | sonari  | 123456789 | BCA    |
+|    2 | Nitin      | kandra  | 789456659 | BSCIT  |
+|    3 | Nitu       | kandra  | 789456659 | BSCIT  |
+|    4 | Raja       | kandra  | 789456659 | BSCIT  |
+|    5 | Raj kumar  | kandra  | 789456659 | BSCIT  |
+|    8 | Akash      | sonari  |  45567899 | BSCIT  |
++------+------------+---------+-----------+--------+
+6 rows in set (0.000 sec)
+
+MariaDB [nsu]> select stud.roll,stud.name,marks.subject,marks.marks from stud left join marks on stud.roll=marks.roll;
++------+------------+---------+-------+
+| roll | name       | subject | marks |
++------+------------+---------+-------+
+|    1 | ravi kumar | Math    |    60 |
+|    2 | Nitin      | Hindi   |    80 |
+|    3 | Nitu       | English |    90 |
+|    4 | Raja       | SST     |    90 |
+|    5 | Raj kumar  | SCI     |    75 |
+|    8 | Akash      | NULL    |  NULL |
++------+------------+---------+-------+
+6 rows in set (0.001 sec)
+
+MariaDB [nsu]>

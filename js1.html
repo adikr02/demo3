@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Home</title>
+<style>
+div{
+	background-color:pink;
+width:200px;
+height:200px;
+}
+</style>
+</head>
+<script>
+var t;
+function ch1()
+{
+	document.getElementById("d1").innerHTML="My";
+document.getElementById("d1").style.backgroundColor="red";
+t=setTimeout(ch2,1000);
+}
+
+function ch2()
+{
+		document.getElementById("d1").innerHTML="Name";
+document.getElementById("d1").style.backgroundColor="green";
+t=setTimeout(ch3,1000);
+}
+
+function ch3()
+{
+		document.getElementById("d1").innerHTML="Is";
+document.getElementById("d1").style.backgroundColor="pink";
+t=setTimeout(ch4,1000);
+}
+
+function ch4()
+{
+		document.getElementById("d1").innerHTML="D1";
+document.getElementById("d1").style.backgroundColor="blue";
+t=setTimeout(ch1,1000);
+}
+function stop()
+{
+	
+	document.getElementById("d1").innerHTML="My";
+document.getElementById("d1").style.backgroundColor="black";
+clearTimeout(t);
+}
+
+function red()
+{
+	
+u=document.getElementById("d1").style.backgroundColor;
+document.getElementById("d1").style.backgroundColor=u;
+clearTimeout(t);
+}
+
+</script>
+<body onresize="red()">
+	<div id="d1" onclick="red()">Welcome</div>
+	<input type="text" id="t1" >
+	<input type="color" id="c">
+	<input type="button" onclick="ch1()">
+	<input type="button" onclick="stop()">
+	<input type="button" onclick="red()" value="Red">
+</body>
+</html>
+

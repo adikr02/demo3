@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>
+    Have
+</title>
+<link href="it.css" rel="stylesheet">
+</head>
+<script>
+    function ch()
+    {
+        a=document.getElementById("t1").value;
+        b=document.getElementById("t2").value;
+        c=parseInt(a)+parseInt(b);
+        m=parseInt(a)-parseInt(b);
+        n=parseInt(a)*parseInt(b);
+        z=parseInt(a)/parseInt(b);
+        document.getElementById("d1").innerHTML=c;
+        document.getElementById("d2").innerHTML=m;
+        document.getElementById("d3").innerHTML=n;
+        document.getElementById("d4").innerHTML=z;
+       }
+</script>
+<body>
+<div class="later">
+    <div class="result">
+    <input type="text" id="t1"><br><br>
+    <input type="text" id="t2"><br><br>
+     <button onclick="ch()">OK</button></div>
+    <div class ="has">
+        <h1>&nbspAddition</h1>
+    <p id="d1"></p>
+    </div>
+    <div class ="have">
+        <h1>&nbsp&nbsp&nbspSubtraction</h1>
+        <p id="d2"></p>
+    </div>
+    <div class ="was">
+        <h1>Multiplication</h1>
+        <p id="d3"></p>
+    </div>
+    <div class ="were">
+        <h1>&nbsp&nbspDivision</h1>
+       <p id="d4"></p> 
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>
+        Circle
+    </title>
+    <link rel="stylesheet" href="animation.css">
+</head>
+<script>
+    function check() {
+        let letter = document.getElementById("t1").value;
+        letter = letter.toUpperCase();
+            if (letter == "EARTH") {
+                document.getElementById("d1").style.backgroundImage = "url('earth.jpg')";
+            }
+            if (letter == "RIDES") {
+                document.getElementById("d1").style.backgroundImage = "url('rides1.jpg')";
+            } if (letter == "RIDES1") {
+                document.getElementById("d1").style.backgroundImage = "url('rides.jpg')";
+            } if (letter == "WHEEL") {
+                document.getElementById("d1").style.backgroundImage = "url('wheel.jpg')";
+            } if (letter == "UMBRELLA") {
+                document.getElementById("d1").style.backgroundImage = "url('umbrella.jpg')";
+            }
+        }
+</script>
+
+<body>
+    <div id="panda">
+        <div id="d1"> </div>
+        <input style="margin-left: 450px; " type="text" id="t1">
+        <button style="margin-left: 20px;" onclick="check()">Check</button>
+    </div>
+</body>
+</html>
